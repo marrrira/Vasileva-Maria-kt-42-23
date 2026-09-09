@@ -1,0 +1,6 @@
+@vasilevamariakt_42_23_pp_HostAddress = http://localhost:5225
+
+GET {{vasilevamariakt_42_23_pp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
