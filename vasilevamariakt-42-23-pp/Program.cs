@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
+using vasilevamariakt_42_23_pp.Database;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
@@ -15,6 +17,10 @@ try
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Services.AddDbContext<UniversityDbContext>(options =>
+        options.UseSqlServer(connectionString));
 
     var app = builder.Build();
 
@@ -33,6 +39,7 @@ try
 catch (Exception ex)
 {
     logger.Error(ex, "Stopped program because of exception");
+    throw;
 }
 finally
 {
